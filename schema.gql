@@ -1,0 +1,23 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+type Course {
+  id: ID!
+  name: String!
+}
+
+type Employee {
+  id: ID!
+  name: String!
+}
+
+type Query {
+  workspace: Workspace
+}
+
+type Workspace {
+  employees: [Employee!]!
+  id: ID!
+  name: String!
+}
