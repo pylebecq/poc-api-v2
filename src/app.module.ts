@@ -7,7 +7,7 @@ import { GraphQLModule } from './graph-qlmodule/graphql.module';
   imports: [
     ConfigModule.forRoot(),
     NestGraphQLModule.forRoot({
-      autoSchemaFile: `schema.gql`,
+      autoSchemaFile: `${process.cwd()}/graphql/schema.gql`,
       introspection: true,
       sortSchema: true,
       debug: true,
