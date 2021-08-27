@@ -9,3 +9,36 @@ datasource db {
 generator client {
   provider = "prisma-client-js"
 }
+
+model Workspace {
+  id   String @id @default(uuid())
+  name String
+
+  @@map("workspaces")
+}
+
+model Employee {
+  id         String      @id @default(uuid())
+  name       String
+  enrolments Enrolment[]
+
+  @@map("employees")
+}
+
+model Course {
+  id         String      @id @default(uuid())
+  name       String
+  enrolments Enrolment[]
+
+  @@map("courses")
+}
+
+model Enrolment {
+  id         String   @id @default(uuid())
+  employee   Employee @relation(fields: [employeeId], references: [id])
+  course     Course   @relation(fields: [courseId], references: [id])
+  employeeId String   @map("employee_id")
+  courseId   String   @map("course_id")
+
+  @@map("enrolments")
+}

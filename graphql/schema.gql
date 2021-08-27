@@ -7,13 +7,21 @@ type Course {
   name: String!
 }
 
+input CreateWorkspaceInput {
+  name: String!
+}
+
 type Employee {
   id: ID!
   name: String!
 }
 
+type Mutation {
+  createWorkspace(input: CreateWorkspaceInput!): Workspace!
+}
+
 type Query {
-  workspace: Workspace
+  workspace(id: String!): Workspace
 }
 
 type Workspace {

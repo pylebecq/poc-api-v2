@@ -1,11 +1,14 @@
 import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { GraphQLModule as NestGraphQLModule } from '@nestjs/graphql';
-import { GraphQLModule } from './graph-qlmodule/graphql.module';
+import { GraphQLModule } from './graphql/graphql.module';
+import { PrismaModule } from './prisma/prisma.module';
+import { WorkspacesModule } from './workspaces/workspaces.module';
 
 @Module({
   imports: [
     ConfigModule.forRoot(),
+    PrismaModule,
     NestGraphQLModule.forRoot({
       autoSchemaFile: `${process.cwd()}/graphql/schema.gql`,
       introspection: true,
@@ -14,6 +17,7 @@ import { GraphQLModule } from './graph-qlmodule/graphql.module';
       include: [GraphQLModule],
     }),
     GraphQLModule,
+    WorkspacesModule,
   ],
   controllers: [],
   providers: [],

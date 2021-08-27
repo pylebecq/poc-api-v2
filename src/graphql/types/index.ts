@@ -3,41 +3,41 @@ import { Field, ID, ObjectType } from '@nestjs/graphql';
 @ObjectType()
 export class Workspace {
   @Field(() => ID)
-  id?: string;
+  id!: string;
 
   @Field(() => String)
-  name?: string;
+  name!: string;
 
   @Field(() => [Employee])
-  employees?: Employee[];
+  employees!: Employee[];
 }
 
 @ObjectType()
 export class Employee {
   @Field(() => ID)
-  id?: string;
+  id!: string;
 
   @Field(() => String)
-  name?: string;
+  name!: string;
 }
 
 @ObjectType()
 export class Course {
   @Field(() => ID)
-  id?: string;
+  id!: string;
 
   @Field(() => String)
-  name?: string;
+  name!: string;
 }
 
 @ObjectType()
 export class Enrolment {
   @Field(() => ID)
-  id?: string;
+  id!: string;
 
   @Field(() => Course)
-  course?: Course;
+  course!: Course;
 
   @Field(() => Employee)
-  employee?: Employee;
+  employee!: Employee;
 }

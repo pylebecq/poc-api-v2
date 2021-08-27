@@ -1,0 +1,14 @@
+version: '3.8'
+services:
+  postgres:
+    container_name: riot-postgres
+    image: postgres:12
+    ports:
+      - '5432:5432'
+    restart: always
+    volumes:
+      - db_data:/var/lib/postgresql/data
+    environment:
+      POSTGRES_PASSWORD: postgrespassword
+volumes:
+  db_data:
