@@ -1,5 +1,6 @@
 import { Inject, Injectable } from '@nestjs/common';
 import { Prisma } from '@prisma/client';
+import { DateTime } from 'luxon';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { PrismaReadOnlyService } from 'src/prisma/services';
 import { EmployeeStatus } from './employee-status';
@@ -42,6 +43,23 @@ export class EmployeesContext {
           value: {
             in: args.filters.status,
           },
+        },
+      },
+    });
+  }
+
+  public async listEmployeesWhoCompletedACourseAfterDate(
+    workspaceId: string,
+    date: DateTime,
+  ) {
+    const employeeIds = await this.prismaReadOnlyService.$queryRaw<
+      { id: string }[]
+    >`SELECT e.id FROM employees e INNER JOIN enrolments en ON en.employee_id = e.id AND en.created_at >= ${date.toJSDate()} AND e.workspace_id = ${workspaceId}`;
+
+    return this.prismaReadOnlyService.employee.findMany({
+      where: {
+        id: {
+          in: employeeIds.map((row) => row.id),
         },
       },
     });

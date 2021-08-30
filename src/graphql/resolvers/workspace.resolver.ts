@@ -1,5 +1,6 @@
 import {
   Args,
+  Context,
   Mutation,
   Parent,
   Query,
@@ -9,7 +10,7 @@ import {
 import { EmployeesContext } from 'src/employees/employees.context';
 import { WorkspacesContext } from 'src/workspaces/workspaces.context';
 import { CreateWorkspaceInput, EmployeesFilter } from '../inputs';
-import { Employee, Workspace } from '../types';
+import { Employee, Workspace, WorkspaceStatistics } from '../types';
 
 @Resolver(Workspace)
 export class WorkspaceResolver {
@@ -19,7 +20,9 @@ export class WorkspaceResolver {
   ) {}
 
   @Query(() => Workspace, { nullable: true, name: 'workspace' })
-  public get(@Args('id') id: string) {
+  public get(@Args('id') id: string, @Context() context: any) {
+    context['workspaceId'] = id;
+
     return this.workspacesContext.getWorkspace({
       id,
     });
@@ -39,5 +42,10 @@ export class WorkspaceResolver {
       workspaceId: workspace.id,
       filters: filterBy,
     });
+  }
+
+  @ResolveField('statistics', () => WorkspaceStatistics)
+  public statistics() {
+    return {};
   }
 }

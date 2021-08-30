@@ -2,6 +2,10 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
+type AwarenessStatistics {
+  recentlyEnroledEmployeesCount: Int!
+}
+
 type Course {
   id: ID!
   name: String!
@@ -45,4 +49,9 @@ type Workspace {
   employees(filterBy: EmployeesFilter!): [Employee!]!
   id: ID!
   name: String!
+  statistics: WorkspaceStatistics!
+}
+
+type WorkspaceStatistics {
+  awareness: AwarenessStatistics!
 }

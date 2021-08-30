@@ -1,4 +1,4 @@
-import { Field, ID, ObjectType } from '@nestjs/graphql';
+import { Field, ID, Int, ObjectType } from '@nestjs/graphql';
 
 @ObjectType()
 export class Workspace {
@@ -10,6 +10,18 @@ export class Workspace {
 
   @Field(() => [Employee])
   employees!: Employee[];
+}
+
+@ObjectType()
+export class AwarenessStatistics {
+  @Field(() => Int)
+  recentlyEnroledEmployeesCount!: number;
+}
+
+@ObjectType()
+export class WorkspaceStatistics {
+  @Field(() => AwarenessStatistics)
+  awareness!: AwarenessStatistics;
 }
 
 @ObjectType()

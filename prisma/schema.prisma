@@ -50,6 +50,7 @@ model Enrolment {
   id         String   @id @default(uuid())
   employee   Employee @relation(fields: [employeeId], references: [id])
   course     Course   @relation(fields: [courseId], references: [id])
+  createdAt  DateTime @map("created_at") @db.Timestamptz
   employeeId String   @map("employee_id")
   courseId   String   @map("course_id")
 
