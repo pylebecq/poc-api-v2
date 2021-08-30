@@ -11,16 +11,29 @@ generator client {
 }
 
 model Workspace {
-  id   String @id @default(uuid())
-  name String
+  id        String     @id @default(uuid())
+  name      String
+  employees Employee[]
 
   @@map("workspaces")
 }
 
+model EmployeeStatus {
+  value    String     @id
+  employee Employee[]
+
+  @@map("employee_status")
+}
+
 model Employee {
-  id         String      @id @default(uuid())
-  name       String
+  id                  String @id @default(uuid())
+  name                String
+  workspaceId         String @map("workspace_id")
+  employeeStatusValue String @map("employee_status")
+
   enrolments Enrolment[]
+  status     EmployeeStatus @relation(fields: [employeeStatusValue], references: [value])
+  workspace  Workspace      @relation(fields: [workspaceId], references: [id])
 
   @@map("employees")
 }

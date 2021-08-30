@@ -7,6 +7,11 @@ type Course {
   name: String!
 }
 
+input CreateEmployeeInput {
+  name: String!
+  workspaceId: ID!
+}
+
 input CreateWorkspaceInput {
   name: String!
 }
@@ -16,16 +21,28 @@ type Employee {
   name: String!
 }
 
+enum EmployeeStatus {
+  Active
+  Archived
+  Deactivated
+}
+
+input EmployeesFilter {
+  status: [EmployeeStatus!]!
+}
+
 type Mutation {
+  createEmployee(input: CreateEmployeeInput!): Employee!
   createWorkspace(input: CreateWorkspaceInput!): Workspace!
 }
 
 type Query {
+  employee(id: String!): Employee
   workspace(id: String!): Workspace
 }
 
 type Workspace {
-  employees: [Employee!]!
+  employees(filterBy: EmployeesFilter!): [Employee!]!
   id: ID!
   name: String!
 }
